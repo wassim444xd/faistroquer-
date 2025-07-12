@@ -1,0 +1,56 @@
+<div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h2 class="card-title mb-0">Modifier l'annonce</h2>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="adForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="title" class="form-label">Titre de l'annonce</label>
+            <input type="text" id="title" formControlName="title" class="form-control"
+                   [class.is-invalid]="adForm.get('title')?.invalid && adForm.get('title')?.touched">
+            <div *ngIf="adForm.get('title')?.invalid && adForm.get('title')?.touched" class="invalid-feedback">
+              Le titre est obligatoire.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" formControlName="description" class="form-control" rows="5"
+                      [class.is-invalid]="adForm.get('description')?.invalid && adForm.get('description')?.touched"></textarea>
+            <div *ngIf="adForm.get('description')?.invalid && adForm.get('description')?.touched" class="invalid-feedback">
+              La description est obligatoire.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="category" class="form-label">Catégorie</label>
+            <select id="category" formControlName="category" class="form-select"
+                    [class.is-invalid]="adForm.get('category')?.invalid && adForm.get('category')?.touched">
+              <option value="" disabled>Sélectionnez une catégorie</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+            <div *ngIf="adForm.get('category')?.invalid && adForm.get('category')?.touched" class="invalid-feedback">
+              La catégorie est obligatoire.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="price" class="form-label">Prix (DZD) <small class="text-muted">(Laissez vide pour échange)</small></label>
+            <input type="number" id="price" formControlName="price" class="form-control">
+            </div>
+  
+          <div class="mb-3">
+            <label for="imageUrl" class="form-label">URL de l'image</label>
+            <input type="url" id="imageUrl" formControlName="imageUrl" class="form-control">
+            <div class="mt-2 text-center" *ngIf="adForm.get('imageUrl')?.value || adToEdit?.imageUrl">
+              <img [src]="getFallbackImage(adForm.get('imageUrl')?.value || adToEdit?.imageUrl)" alt="Aperçu de l'image" class="img-fluid rounded shadow-sm" style="max-height: 200px;">
+              </div>
+          </div>
+  
+          <button type="submit" class="btn btn-primary me-2" [disabled]="adForm.invalid">Mettre à jour l'annonce</button>
+          <button type="button" class="btn btn-secondary" (click)="router.navigate(['/my-ads'])">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>

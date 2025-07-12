@@ -1,0 +1,25 @@
+/* ستايلات قسم Hero Section */
+.hero-section {
+ background-image: url('/assets/hero-bg.jpg'); /* المسار إلى صورة الخلفية */
+  background-size: cover; /* لضمان تغطية الصورة للمساحة بالكامل */
+  background-position: center; /* لتمركز الصورة في المنتصف */
+  min-height: 500px; /* لتحديد ارتفاع أدنى للقسم */
+  display: flex; /* لاستخدام Flexbox لمركزة المحتوى */
+  align-items: center; /* لمركزة المحتوى عمودياً */
+  justify-content: center; /* لمركزة المحتوى أفقياً */
+  position: relative; /* ضروري لتمكين الطبقة الشفافة (::before) من العمل */
+  z-index: 1; /* يضمن أن محتوى Hero Section يظهر فوق الطبقة الشفافة */
+  overflow: hidden; /* يمنع أي أجزاء من الصورة قد تخرج عن الحدود */
+}
+
+/* الطبقة الشفافة (Overlay) فوق صورة الخلفية في Hero Section */
+.hero-section::before {
+  content: ""; /* ضروري لإنشاء عنصر زائف */
+  position: absolute; /* يجعل الطبقة الشفافة تغطي الـ Hero Section بالكامل */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* لون أسود مع شفافية 50% */
+  z-index: -1; /* يجعل الطبقة الشفافة تظهر خلف محتوى الـ Hero Section وفوق الصورة */
+}

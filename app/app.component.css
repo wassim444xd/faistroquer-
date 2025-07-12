@@ -1,0 +1,25 @@
+/* Styling for the Hero Section */
+.hero-section {
+  background-image: url('../assets/hero-bg.jpg') !important; /* أضفنا !important */
+  background-size: cover !important; /* أضفنا !important */
+  background-position: center !important; /* أضفنا !important */
+  min-height: 500px !important; /* أضفنا !important */
+  display: flex !important; /* أضفنا !important */
+  align-items: center !important; /* أضفنا !important */
+  justify-content: center !important; /* أضفنا !important */
+  position: relative !important; /* أضفنا !important */
+  z-index: 1 !important; /* أضفنا !important */
+  overflow: hidden !important; /* أضفنا !important */
+}
+
+/* Overlay for the Hero Section background image */
+.hero-section::before {
+  content: "" !important; /* أضفنا !important */
+  position: absolute !important; /* أضفنا !important */
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.5) !important; /* أضفنا !important */
+  z-index: -1 !important; /* أضفنا !important */
+}

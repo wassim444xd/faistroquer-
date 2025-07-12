@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let ad of (myAds$ | async)">
+        <div class="card h-100 shadow-sm">
+          <img [src]="getFallbackImage(ad.imageUrl)" class="card-img-top" alt="{{ ad.title }}" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ ad.title }}</h5>
+            <p class="card-text">{{ ad.description | slice:0:100 }}...</p>
+            <p class="card-text"><strong>Catégorie:</strong> {{ ad.category }}</p>
+            <p class="card-text" *ngIf="ad.price"><strong>Prix:</strong> {{ ad.price | currency:'DZD':'symbol':'1.0-0' }}</p>
+            <p class="card-text" *ngIf="!ad.price"><strong>Prix:</strong> À échanger</p>
+          </div>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <a [routerLink]="['/ad-details', ad.id]" class="btn btn-sm btn-outline-primary">Détails</a>
+            <div class="btn-group" role="group">
+              <a [routerLink]="['/edit-ad', ad.id]" class="btn btn-sm btn-info">Modifier</a> <button (click)="deleteAd(ad.id)" class="btn btn-sm btn-danger">Supprimer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

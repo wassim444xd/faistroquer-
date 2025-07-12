@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Rechercher des Annonces</h2>
+
+  <div class="row mb-4 justify-content-center">
+    <div class="col-md-8">
+      <form [formGroup]="searchForm" class="row g-3 align-items-center">
+        <div class="col-md-8">
+          <label for="searchTerm" class="visually-hidden">Recherche</label>
+          <input type="text" formControlName="searchTerm" class="form-control" placeholder="Rechercher par titre, description, ou vendeur...">
+          </div>
+        <div class="col-md-4">
+          <label for="category" class="visually-hidden">Catégorie</label>
+          <select formControlName="category" class="form-select">
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let ad of (filteredAds$ | async)">
+      <div class="card h-100 shadow-sm">
+        <img [src]="getFallbackImage(ad.imageUrl)" class="card-img-top" alt="{{ ad.title }}" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ ad.title }}</h5>
+          <p class="card-text">{{ ad.description | slice:0:100 }}...</p>
+          <p class="card-text"><strong>Catégorie:</strong> {{ ad.category }}</p>
+          <p class="card-text" *ngIf="ad.price"><strong>Prix:</strong> {{ ad.price | currency:'DZD':'symbol':'1.0-0' }}</p>
+          <p class="card-text" *ngIf="!ad.price"><strong>Prix:</strong> À échanger</p>
+        </div>
+        <div class="card-footer">
+          <a [routerLink]="['/ad-details', ad.id]" class="btn btn-primary w-100">Voir les détails</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="(filteredAds$ | async)?.length === 0" class="col-12 text-center mt-5">
+    <p class="lead">Aucune annonce trouvée pour votre recherche.</p>
+  </div>
+</div>o

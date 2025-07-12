@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">Faistroquer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/post-ad" routerLinkActive="active">Déposer une Annonce</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/search" routerLinkActive="active">Rechercher</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.currentUserValue">
+            <a class="nav-link" routerLink="/my-ads" routerLinkActive="active">Mes Annonces</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <ng-container *ngIf="!authService.currentUserValue">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/register" routerLinkActive="active">S'inscrire</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-primary text-white" routerLink="/login">Se connecter</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="authService.currentUserValue">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+                <i class="bi bi-person-circle"></i> {{ authService.currentUserValue?.username }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-outline-danger ms-2" (click)="logout()">Déconnexion</button>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </nav>

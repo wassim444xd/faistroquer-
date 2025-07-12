@@ -1,0 +1,58 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Déposer une nouvelle annonce</h2>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <form [formGroup]="adForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="title" class="form-label">Titre de l'annonce</label>
+              <input type="text" id="title" formControlName="title" class="form-control"
+                     [class.is-invalid]="adForm.get('title')?.invalid && adForm.get('title')?.touched">
+              <div *ngIf="adForm.get('title')?.invalid && adForm.get('title')?.touched" class="invalid-feedback">
+                Le titre est obligatoire.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea id="description" formControlName="description" class="form-control" rows="4"
+                        [class.is-invalid]="adForm.get('description')?.invalid && adForm.get('description')?.touched"></textarea>
+              <div *ngIf="adForm.get('description')?.invalid && adForm.get('description')?.touched" class="invalid-feedback">
+                La description est obligatoire.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="category" class="form-label">Catégorie</label>
+              <select id="category" formControlName="category" class="form-select"
+                      [class.is-invalid]="adForm.get('category')?.invalid && adForm.get('category')?.touched">
+                <option value="" disabled>Sélectionnez une catégorie</option>
+                <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+              </select>
+              <div *ngIf="adForm.get('category')?.invalid && adForm.get('category')?.touched" class="invalid-feedback">
+                La catégorie est obligatoire.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Prix souhaité (en DZD, facultatif pour échange)</label>
+              <input type="number" id="price" formControlName="price" class="form-control" placeholder="Laisser vide si l'article est à échanger">
+            </div>
+
+            <div class="mb-3">
+              <label for="imageUrl" class="form-label">Lien de l'image de l'article (URL)</label>
+              <input type="url" id="imageUrl" formControlName="imageUrl" class="form-control" placeholder="https://example.com/image.jpg">
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg" [disabled]="adForm.invalid">Publier l'annonce</button>
+              <a routerLink="/" class="btn btn-secondary mt-2">Annuler</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

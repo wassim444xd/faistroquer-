@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <div *ngIf="ad$ | async as ad; else loadingOrNotFound" class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h2 class="card-title mb-0">{{ ad.title }}</h2>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <img [src]="getFallbackImage(ad.imageUrl)" class="img-fluid rounded shadow-sm" alt="{{ ad.title }}" style="max-height: 400px; object-fit: contain;">
+        </div>
+        <div class="col-md-6">
+          <p class="card-text"><strong>Description:</strong> {{ ad.description }}</p>
+          <p class="card-text"><strong>Catégorie:</strong> <span class="badge bg-secondary">{{ ad.category }}</span></p>
+          <p class="card-text" *ngIf="ad.price"><strong>Prix:</strong> {{ ad.price | currency:'DZD':'symbol':'1.0-0' }}</p>
+          <p class="card-text" *ngIf="!ad.price"><strong>Prix:</strong> À échanger</p>
+          <small class="text-muted">Publié par: {{ ad.username }} le {{ ad.postDate | date:'shortDate' }}</small>
+          <div class="mt-3">
+            <button class="btn btn-success me-2">Contacter le vendeur</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+      <a routerLink="/" class="btn btn-outline-secondary">Retour à la liste des annonces</a>
+    </div>
+  </div>
+
+  <ng-template #loadingOrNotFound>
+    <div class="text-center mt-5">
+      <p *ngIf="loading">Chargement de l'annonce...</p>
+      <p *ngIf="!loading">Annonce non trouvée.</p>
+      <a routerLink="/" class="btn btn-primary mt-3">Retour à l'accueil</a>
+    </div>
+  </ng-template>
+</div>

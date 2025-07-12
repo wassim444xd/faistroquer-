@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Contactez-nous</h3>
+        </div>
+        <div class="card-body">
+          <p class="mb-4">N'hésitez pas à nous envoyer un message pour toute question ou suggestion.</p>
+
+          <div *ngIf="successMessage" class="alert alert-success mb-3">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger mb-3">
+            {{ errorMessage }}
+          </div>
+
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Votre Nom <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="name" formControlName="name"
+                     [class.is-invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+              <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="invalid-feedback">
+                <span *ngIf="contactForm.get('name')?.errors?.['required']">Le nom est obligatoire.</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Votre Email <span class="text-danger">*</span></label>
+              <input type="email" class="form-control" id="email" formControlName="email"
+                     [class.is-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+              <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="invalid-feedback">
+                <span *ngIf="contactForm.get('email')?.errors?.['required']">L'email est obligatoire.</span>
+                <span *ngIf="contactForm.get('email')?.errors?.['email']">Veuillez entrer une adresse email valide.</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="message" class="form-label">Votre Message <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="message" formControlName="message" rows="5"
+                        [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"></textarea>
+              <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="invalid-feedback">
+                <span *ngIf="contactForm.get('message')?.errors?.['required']">Le message est obligatoire.</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" [disabled]="!contactForm.valid">Envoyer le message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
